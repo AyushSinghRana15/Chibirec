@@ -12,53 +12,15 @@ const Navbar = ({ currentView, onViewChange, user, isInferno, onProfileClick, on
 
     return (
         <nav className="premium-navbar">
-            <div className="navbar-top-row">
-                <div className="navbar-brand">
-                    <motion.div
-                        className="brand-icon-wrapper"
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 400 }}
-                    >
-                        <Sparkles className="navbar-logo" size={28} />
-                    </motion.div>
-                    <span className="navbar-title">{isInferno ? 'InfernoRec' : 'ChibiRec'}</span>
-                </div>
-
-                <div className="navbar-actions">
-                    {user && (
-                        <motion.button
-                            className="navbar-recommend-btn"
-                            onClick={onRecommendedClick}
-                            whileTap={{ scale: 0.95 }}
-                            title="For You"
-                        >
-                            <Heart size={18} />
-                            <span>For You</span>
-                        </motion.button>
-                    )}
-
-                    {user ? (
-                        <div className="navbar-user">
-                            <button className="navbar-user-btn" onClick={onProfileClick} title="Profile">
-                                <User size={16} />
-                                <span>{user?.username}</span>
-                            </button>
-                            <button className="navbar-logout-btn" onClick={onLogout} title="Logout">
-                                <LogOut size={16} />
-                                <span className="logout-text">Logout</span>
-                            </button>
-                        </div>
-                    ) : (
-                        <motion.button
-                            className="navbar-signin-btn"
-                            onClick={onSignInClick}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <LogIn size={18} />
-                            <span>Sign In</span>
-                        </motion.button>
-                    )}
-                </div>
+            <div className="navbar-brand">
+                <motion.div
+                    className="brand-icon-wrapper"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                >
+                    <Sparkles className="navbar-logo" size={28} />
+                </motion.div>
+                <span className="navbar-title">{isInferno ? 'InfernoRec' : 'ChibiRec'}</span>
             </div>
 
             <div className="navbar-items">
@@ -84,6 +46,41 @@ const Navbar = ({ currentView, onViewChange, user, isInferno, onProfileClick, on
                         </motion.button>
                     );
                 })}
+            </div>
+
+            <div className="navbar-actions">
+                {user && (
+                    <motion.button
+                        className="navbar-recommend-btn"
+                        onClick={onRecommendedClick}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <Heart size={18} />
+                        <span>For You</span>
+                    </motion.button>
+                )}
+
+                {user ? (
+                    <div className="navbar-user">
+                        <button className="navbar-user-btn" onClick={onProfileClick}>
+                            <User size={16} />
+                            <span>{user?.username}</span>
+                        </button>
+                        <button className="navbar-logout-btn" onClick={onLogout} title="Logout">
+                            <LogOut size={16} />
+                            <span className="logout-text">Logout</span>
+                        </button>
+                    </div>
+                ) : (
+                    <motion.button
+                        className="navbar-signin-btn"
+                        onClick={onSignInClick}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <LogIn size={18} />
+                        <span>Sign In</span>
+                    </motion.button>
+                )}
             </div>
         </nav>
     );
