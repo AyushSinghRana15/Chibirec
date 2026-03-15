@@ -1843,57 +1843,83 @@ body {
 /* Responsive Navbar */
 @media (max-width: 768px) {
   .premium-navbar {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    position: relative;
   }
 
   .navbar-brand {
-    gap: 0.5rem;
+    gap: 0.4rem;
+    order: 1;
   }
 
   .navbar-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .brand-icon-wrapper {
-    padding: 6px;
-    border-radius: 8px;
+    padding: 5px;
+    border-radius: 6px;
+  }
+
+  .brand-icon-wrapper svg {
+    width: 18px;
+    height: 18px;
   }
 
   .navbar-items {
+    order: 3;
     flex-wrap: nowrap;
-    gap: 0.25rem;
-    justify-content: center;
+    gap: 0.15rem;
+    justify-content: flex-start;
     width: 100%;
     overflow-x: auto;
+    padding: 0.25rem 0;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--glass-border);
   }
 
   .navbar-item {
-    padding: 0.5rem 0.75rem;
-    min-width: 44px;
+    padding: 0.4rem 0.5rem;
+    min-width: 36px;
+    min-height: 36px;
     justify-content: center;
+    font-size: 0.75rem;
   }
 
   .navbar-item span {
-    display: none;
+    display: inline;
+    font-size: 0.7rem;
+    margin-left: 0.25rem;
   }
 
   .navbar-item svg {
-    margin-right: 0;
+    width: 16px;
+    height: 16px;
   }
 
   .navbar-actions {
-    width: 100%;
-    justify-content: center;
-    gap: 0.5rem;
+    order: 2;
+    margin-left: auto;
+    gap: 0.25rem;
   }
 
   .navbar-recommend-btn {
-    width: 44px;
-    height: 44px;
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-recommend-btn svg {
+    width: 16px;
+    height: 16px;
   }
 
   .navbar-recommend-btn span {
@@ -1901,24 +1927,31 @@ body {
   }
 
   .navbar-signin-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
   }
 
   .navbar-signin-btn span {
-    display: none;
+    display: inline;
   }
 
   .navbar-user {
-    width: auto;
     gap: 0.25rem;
   }
 
   .navbar-user-btn {
-    width: 44px;
-    height: 44px;
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     padding: 0;
     justify-content: center;
+  }
+
+  .navbar-user-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
   .navbar-user-btn span {
@@ -1926,27 +1959,71 @@ body {
   }
 
   .navbar-logout-btn {
-    width: 44px;
-    height: 44px;
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     padding: 0;
     justify-content: center;
+  }
+
+  .navbar-logout-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
   .logout-text {
     display: none;
   }
 
+  /* Search section mobile */
+  .search-section {
+    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .search-bar {
+    flex: 1;
+    min-width: 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+  }
+
+  .search-bar input {
+    font-size: 0.85rem;
+    padding: 0.25rem;
+  }
+
+  .search-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .mode-toggle {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  .mode-toggle svg {
+    width: 14px;
+    height: 14px;
+  }
+
   /* Categories mobile */
   .categories-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding: 0 0.75rem;
   }
 
   .categories-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-bottom: 0;
   }
 
@@ -1956,112 +2033,185 @@ body {
 
   .categories-search {
     width: 100%;
+    padding: 0 0.75rem;
   }
 
   .categories-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .category-card {
-    padding: 0.75rem;
-    border-radius: 10px;
+    padding: 0.5rem;
+    border-radius: 8px;
   }
 
   .genre-icon {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .genre-name {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .genre-count {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 
   /* Anime grid mobile */
   .anime-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    padding: 0.75rem;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .anime-card {
-    border-radius: 12px;
+    border-radius: 10px;
   }
 
   .anime-poster {
-    height: 200px;
+    height: 160px;
   }
 
   .anime-title {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     -webkit-line-clamp: 1;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .anime-actions {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+
+  .fancy-action-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .fancy-action-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
   /* Hero section mobile */
   .hero-section {
-    padding: 1rem;
-    gap: 1rem;
+    padding: 0.5rem 0.75rem;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-container {
+    flex-direction: column;
   }
 
   .hero-poster {
-    border-radius: 16px;
-    max-height: 250px;
+    border-radius: 12px;
+    max-height: 180px;
+    width: 120px;
+    object-fit: cover;
   }
 
   .hero-info {
-    padding: 1rem;
+    padding: 0.75rem;
+    border-radius: 12px;
   }
 
   .hero-title {
-    font-size: 1.25rem;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-featured-badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-description {
+    font-size: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+  }
+
+  .hero-meta {
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
   }
 
   .hero-actions {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.5rem;
   }
 
   .hero-actions button {
-    width: 100%;
-  }
-
-  /* Search bar mobile */
-  .search-bar {
-    padding: 0.5rem 1rem;
-    border-radius: 14px;
-  }
-
-  .search-bar input {
-    font-size: 0.9rem;
-  }
-
-  .mode-toggle {
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.75rem;
     font-size: 0.8rem;
+    border-radius: 8px;
+  }
+
+  /* Main content */
+  .main-content {
+    padding-top: 0.5rem;
   }
 
   /* Profile mobile */
   .profile-view {
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+
+  .stat-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .stat-card h3 {
+    font-size: 1.5rem;
   }
 
   /* Login mobile */
   .premium-login-card {
-    padding: 2rem 1.5rem;
-    margin: 1rem;
-    border-radius: 24px;
+    padding: 1.5rem;
+    margin: 0.5rem;
+    border-radius: 20px;
   }
 
   .login-brand h1 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+  }
+
+  .login-brand p {
+    font-size: 0.85rem;
+  }
+
+  .premium-input-group {
+    margin-bottom: 0.75rem;
+  }
+
+  .premium-input-group input {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .premium-submit {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    border-radius: 12px;
   }
 }
 
@@ -2072,16 +2222,24 @@ body {
   }
 
   .navbar-brand {
-    min-width: 44px;
+    min-width: 28px;
+  }
+
+  .navbar-item span {
+    display: none;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .anime-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .anime-poster {
-    height: 180px;
+    height: 140px;
   }
 }
 
