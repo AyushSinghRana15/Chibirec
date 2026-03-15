@@ -13,21 +13,21 @@ const AnimeCard = ({ anime, onLike, isLiked, onWatch, isWatched, onExpand, badge
         const fetchRealData = async () => {
             const posterCacheKey = `poster_${anime.Name}`;
             const descCacheKey = `desc_${anime.Name}`;
-            
+
             const cachedPoster = localStorage.getItem(posterCacheKey);
             const cachedDesc = localStorage.getItem(descCacheKey);
-            
+
             if (cachedPoster) setRealImage(cachedPoster);
             if (cachedDesc) {
                 setDescription(cachedDesc);
                 if (cachedPoster) return; // Full data found
             }
-            
+
             if (anime.Description && !cachedDesc) setDescription(anime.Description);
 
             setIsLoading(true);
             setIsDescriptionLoading(true);
-            
+
             const tryJikan = async (query) => {
                 try {
                     const res = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&limit=1`);
@@ -81,11 +81,11 @@ const AnimeCard = ({ anime, onLike, isLiked, onWatch, isWatched, onExpand, badge
 
             try {
                 const searchName = anime.Release_year ? `${anime.Name} ${anime.Release_year}` : anime.Name;
-                
+
                 // 1. Try Jikan Primary (with Year)
                 let result = await tryJikan(searchName);
                 if (!result?.poster) result = await tryJikan(anime.Name);
-                
+
                 // 2. Try Jikan Japanese Fallback
                 if (!result?.poster && anime.Japanese_name) {
                     result = await tryJikan(anime.Japanese_name);
@@ -165,16 +165,16 @@ const AnimeCard = ({ anime, onLike, isLiked, onWatch, isWatched, onExpand, badge
             'Josei': '#f8c291',
             'Shoujo': '#e77f67'
         };
-        
+
         if (!anime.Tags) return '#4361ee';
-        
+
         const tags = anime.Tags.split(',').map(t => t.trim());
         for (const tag of tags) {
             if (genreColors[tag]) {
                 return genreColors[tag];
             }
         }
-        
+
         let hash = 0;
         for (let i = 0; i < (tags[0] || '').length; i++) {
             hash = (tags[0] || '').charCodeAt(i) + ((hash << 5) - hash);
@@ -196,7 +196,7 @@ const AnimeCard = ({ anime, onLike, isLiked, onWatch, isWatched, onExpand, badge
 
     return (
         <>
-            <motion.div 
+            <motion.div
                 className="anime-card"
                 style={{ '--genre-color': genreColor }}
                 whileHover={{ y: -12, scale: 1.02 }}
@@ -206,171 +206,167 @@ const AnimeCard = ({ anime, onLike, isLiked, onWatch, isWatched, onExpand, badge
                 onClick={handleCardClick}
                 layoutId={`card-${anime.Name}`}
             >
-            <div className="anime-image-container">
-                {badge && (
-                    <div className={`exclusive-badge ${badge.type}`}>
-                        {badge.icon} {badge.text}
-                    </div>
-                )}
-                <AnimatePresence>
-                    {isLoading && (
-                        <motion.div 
-                            className="image-loader"
-                            initial={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                        >
-                            <div className="shimmer"></div>
-                        </motion.div>
+                <div className="anime-image-container">
+                    {badge && (
+                        <div className={`exclusive-badge ${badge.type}`}>
+                            {badge.icon} {badge.text}
+                        </div>
                     )}
-                </AnimatePresence>
-                <img 
-                    src={imageUrl} 
-                    alt={anime.Name} 
-                    className={`anime-image ${isLoading ? 'loading' : ''}`}
-                    loading="lazy"
-                    onLoad={() => setIsLoading(false)}
-                />
-                <div className="image-overlay"></div>
-                <div className="card-actions-float">
-                    <motion.button 
-                        whileHover={{ scale: 1.15 }}
-                        whileTap={{ scale: 0.9 }}
-                        className={`fancy-action-btn like-btn ${isLiked ? 'active' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); onLike(anime); }}
-                    >
-                        <Heart size={22} fill={isLiked ? "currentColor" : "none"} />
-                    </motion.button>
-                    <motion.button 
-                        whileHover={{ scale: 1.15 }}
-                        whileTap={{ scale: 0.9 }}
-                        className={`fancy-action-btn watch-btn ${isWatched ? 'active' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); onWatch(anime); }}
-                        title="Mark as Watched"
-                    >
-                        <Eye size={22} fill={isWatched ? "currentColor" : "none"} />
-                    </motion.button>
-                </div>
-            </div>
-            
-            <div className="anime-info">
-                <div className="anime-meta">
-                    <span className="rating-badge">{anime.Type || 'TV'}</span>
-                    <div className="anime-rating">
-                        <Star size={14} fill="#fbbf24" color="#fbbf24" />
-                        <span>{anime.Rating || 'N/A'}</span>
+                    <AnimatePresence>
+                        {isLoading && (
+                            <motion.div
+                                className="image-loader"
+                                initial={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                <div className="shimmer"></div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                    <img
+                        src={imageUrl}
+                        alt={anime.Name}
+                        className={`anime-image ${isLoading ? 'loading' : ''}`}
+                        loading="lazy"
+                        onLoad={() => setIsLoading(false)}
+                    />
+                    <div className="image-overlay"></div>
+                    <div className="card-actions-float">
+                        <motion.button
+                            whileTap={{ scale: 0.9 }}
+                            className={`fancy-action-btn like-btn ${isLiked ? 'active' : ''}`}
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onLike(anime); }}
+                        >
+                            <Heart size={22} fill={isLiked ? "currentColor" : "none"} />
+                        </motion.button>
+                        <motion.button
+                            whileTap={{ scale: 0.9 }}
+                            className={`fancy-action-btn watch-btn ${isWatched ? 'active' : ''}`}
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onWatch(anime); }}
+                            title="Mark as Watched"
+                        >
+                            <Eye size={22} fill={isWatched ? "currentColor" : "none"} />
+                        </motion.button>
                     </div>
                 </div>
-                <div className="genre-badge" style={{ backgroundColor: genreColor }}>
-                    {anime.Tags ? anime.Tags.split(',')[0].trim() : 'Anime'}
-                </div>
-                <h3 className="anime-title" title={anime.Name}>{anime.Name}</h3>
-                {anime.Studio && <p className="anime-studio">{anime.Studio}</p>}
-            </div>
-        </motion.div>
 
-        <AnimatePresence>
-            {isExpanded && (
-                <motion.div 
-                    className="anime-modal-overlay"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    onClick={handleCloseModal}
-                >
-                    <motion.div 
-                        className="anime-modal"
-                        layoutId={`card-${anime.Name}`}
-                        initial={{ scale: 0.8, opacity: 0, y: 50 }}
-                        animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.8, opacity: 0, y: 50 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        onClick={(e) => e.stopPropagation()}
+                <div className="anime-info">
+                    <div className="anime-meta">
+                        <span className="rating-badge">{anime.Type || 'TV'}</span>
+                        <div className="anime-rating">
+                            <Star size={14} fill="#fbbf24" color="#fbbf24" />
+                            <span>{anime.Rating || 'N/A'}</span>
+                        </div>
+                    </div>
+                    <div className="genre-badge" style={{ backgroundColor: genreColor }}>
+                        {anime.Tags ? anime.Tags.split(',')[0].trim() : 'Anime'}
+                    </div>
+                    <h3 className="anime-title" title={anime.Name}>{anime.Name}</h3>
+                    {anime.Studio && <p className="anime-studio">{anime.Studio}</p>}
+                </div>
+            </motion.div>
+
+            <AnimatePresence>
+                {isExpanded && (
+                    <motion.div
+                        className="anime-modal-overlay"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={handleCloseModal}
                     >
-                        <button className="modal-close-btn" onClick={handleCloseModal}>
-                            <X size={24} />
-                        </button>
-                        
-                        <div className="modal-content">
-                            <div className="modal-image-section">
-                                <img src={imageUrl} alt={anime.Name} className="modal-image" />
-                            </div>
-                            
-                            <div className="modal-info-section">
-                                <div className="modal-header">
-                                    <span className="modal-type-badge">{anime.Type || 'TV'}</span>
-                                    <div className="modal-rating">
-                                        <Star size={18} fill="#fbbf24" color="#fbbf24" />
-                                        <span>{anime.Rating || 'N/A'}</span>
+                        <motion.div
+                            className="anime-modal"
+                            layoutId={`card-${anime.Name}`}
+                            initial={{ scale: 0.8, opacity: 0, y: 50 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.8, opacity: 0, y: 50 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button className="modal-close-btn" onClick={handleCloseModal}>
+                                <X size={24} />
+                            </button>
+
+                            <div className="modal-content">
+                                <div className="modal-image-section">
+                                    <img src={imageUrl} alt={anime.Name} className="modal-image" />
+                                </div>
+
+                                <div className="modal-info-section">
+                                    <div className="modal-header">
+                                        <span className="modal-type-badge">{anime.Type || 'TV'}</span>
+                                        <div className="modal-rating">
+                                            <Star size={18} fill="#fbbf24" color="#fbbf24" />
+                                            <span>{anime.Rating || 'N/A'}</span>
+                                        </div>
+                                    </div>
+
+                                    <h2 className="modal-title">{anime.Name}</h2>
+                                    {anime.Japanese_name && (
+                                        <p className="modal-japanese-title">{anime.Japanese_name}</p>
+                                    )}
+
+                                    <div className="modal-meta">
+                                        {anime.Studio && (
+                                            <div className="modal-meta-item">
+                                                <span className="modal-meta-label">Studio</span>
+                                                <span className="modal-meta-value">{anime.Studio}</span>
+                                            </div>
+                                        )}
+                                        {anime.Tags && (
+                                            <div className="modal-genres">
+                                                <span className="modal-meta-label">Genres</span>
+                                                <div className="modal-genre-tags">
+                                                    {anime.Tags.split(',').slice(0, 5).map((tag, i) => (
+                                                        <span key={i} className="modal-genre-tag">{tag.trim()}</span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="modal-description">
+                                        <span className="modal-meta-label">Synopsis</span>
+                                        {isDescriptionLoading ? (
+                                            <div className="description-loader">
+                                                <div className="shimmer" style={{ height: '100px', borderRadius: '8px' }}></div>
+                                            </div>
+                                        ) : description ? (
+                                            <p>{description}</p>
+                                        ) : (
+                                            <p className="description-fallback">
+                                                Experience {anime.Name}, a captivating {anime.Type || 'anime'} produced by {anime.Studio || 'an unknown studio'}.
+                                                This title features elements from {anime.Tags || 'various genres'} and has captured the hearts of fans worldwide.
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    <div className="modal-actions">
+                                        <motion.button
+                                            whileTap={{ scale: 0.95 }}
+                                            className={`modal-action-btn like-btn ${isLiked ? 'active' : ''}`}
+                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onLike(anime); }}
+                                        >
+                                            <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
+                                            {isLiked ? 'Liked' : 'Add to Favorites'}
+                                        </motion.button>
+                                        <motion.button
+                                            whileTap={{ scale: 0.95 }}
+                                            className={`modal-action-btn watch-btn ${isWatched ? 'active' : ''}`}
+                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onWatch(anime); }}
+                                        >
+                                            <Eye size={20} fill={isWatched ? "currentColor" : "none"} />
+                                            {isWatched ? 'Watched' : 'Mark as Watched'}
+                                        </motion.button>
                                     </div>
                                 </div>
-                                
-                                <h2 className="modal-title">{anime.Name}</h2>
-                                {anime.Japanese_name && (
-                                    <p className="modal-japanese-title">{anime.Japanese_name}</p>
-                                )}
-                                
-                                <div className="modal-meta">
-                                    {anime.Studio && (
-                                        <div className="modal-meta-item">
-                                            <span className="modal-meta-label">Studio</span>
-                                            <span className="modal-meta-value">{anime.Studio}</span>
-                                        </div>
-                                    )}
-                                    {anime.Tags && (
-                                        <div className="modal-genres">
-                                            <span className="modal-meta-label">Genres</span>
-                                            <div className="modal-genre-tags">
-                                                {anime.Tags.split(',').slice(0, 5).map((tag, i) => (
-                                                    <span key={i} className="modal-genre-tag">{tag.trim()}</span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                                
-                                <div className="modal-description">
-                                    <span className="modal-meta-label">Synopsis</span>
-                                    {isDescriptionLoading ? (
-                                        <div className="description-loader">
-                                            <div className="shimmer" style={{ height: '100px', borderRadius: '8px' }}></div>
-                                        </div>
-                                    ) : description ? (
-                                        <p>{description}</p>
-                                    ) : (
-                                        <p className="description-fallback">
-                                            Experience {anime.Name}, a captivating {anime.Type || 'anime'} produced by {anime.Studio || 'an unknown studio'}. 
-                                            This title features elements from {anime.Tags || 'various genres'} and has captured the hearts of fans worldwide.
-                                        </p>
-                                    )}
-                                </div>
-                                
-                                <div className="modal-actions">
-                                    <motion.button 
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`modal-action-btn like-btn ${isLiked ? 'active' : ''}`}
-                                        onClick={(e) => { e.stopPropagation(); onLike(anime); }}
-                                    >
-                                        <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
-                                        {isLiked ? 'Liked' : 'Add to Favorites'}
-                                    </motion.button>
-                                    <motion.button 
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`modal-action-btn watch-btn ${isWatched ? 'active' : ''}`}
-                                        onClick={(e) => { e.stopPropagation(); onWatch(anime); }}
-                                    >
-                                        <Eye size={20} fill={isWatched ? "currentColor" : "none"} />
-                                        {isWatched ? 'Watched' : 'Mark as Watched'}
-                                    </motion.button>
-                                </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    </>
+                )}
+            </AnimatePresence>
+        </>
     );
 };
 

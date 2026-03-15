@@ -37,6 +37,7 @@ const API_BASE = '/api';
 const Categories = ({ onSelectCategory, isInferno, selectedCategory, animeList, onLoadMore, hasMore, loading }) => {
     const [categories, setCategories] = useState([]);
     const [loadingCats, setLoadingCats] = useState(true);
+    const resultsRef = React.useRef(null);
 
     useEffect(() => {
         fetch(`${API_BASE}/categories`)
@@ -50,6 +51,14 @@ const Categories = ({ onSelectCategory, isInferno, selectedCategory, animeList, 
                 setLoadingCats(false);
             });
     }, []);
+
+    useEffect(() => {
+        if (selectedCategory && resultsRef.current) {
+            setTimeout(() => {
+                resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }, [selectedCategory]);
 
     const getCategoryColor = (name) => {
         let hash = 0;
@@ -79,8 +88,8 @@ const Categories = ({ onSelectCategory, isInferno, selectedCategory, animeList, 
                 </h2>
                 <p className="categories-subtitle">Click on a genre to explore anime</p>
             </div>
-            
-            <motion.div 
+
+            <motion.div
                 className="genre-cards-grid"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -94,7 +103,7 @@ const Categories = ({ onSelectCategory, isInferno, selectedCategory, animeList, 
                         <motion.button
                             key={category.name}
                             className={`genre-card ${isSelected ? 'selected' : ''}`}
-                            style={{ 
+                            style={{
                                 '--genre-bg': `${color}15`,
                                 '--genre-color': color,
                                 '--genre-border': `${color}40`
@@ -116,23 +125,24 @@ const Categories = ({ onSelectCategory, isInferno, selectedCategory, animeList, 
             </motion.div>
 
             {selectedCategory && (
-                <motion.div 
+                <motion.div
                     className="selected-genre-anime"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
+                    ref={resultsRef}
                 >
                     <div className="selected-genre-header">
                         <h3 className="selected-genre-title">
                             <span className="title-accent">{selectedCategory}</span> Anime
                         </h3>
-                        <button 
+                        <button
                             className="clear-category-btn"
                             onClick={() => onSelectCategory(null)}
                         >
                             ✕ Clear
                         </button>
                     </div>
-                    
+
                     <div className="anime-grid">
                         {animeList.length === 0 && !loading ? (
                             <div className="empty-watched">
@@ -141,9 +151,9 @@ const Categories = ({ onSelectCategory, isInferno, selectedCategory, animeList, 
                             </div>
                         ) : (
                             animeList.map(anime => (
-                                <AnimeCard 
-                                    key={anime.Name} 
-                                    anime={anime} 
+                                <AnimeCard
+                                    key={anime.Name}
+                                    anime={anime}
                                 />
                             ))
                         )}
