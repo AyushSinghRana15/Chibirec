@@ -1843,15 +1843,23 @@ body {
 /* Responsive Navbar */
 @media (max-width: 768px) {
   .premium-navbar {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     padding: 0.5rem 0.75rem;
-    position: relative;
+  }
+
+  .navbar-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.5rem;
   }
 
   .navbar-brand {
     gap: 0.4rem;
-    order: 1;
+    flex-shrink: 0;
   }
 
   .navbar-title {
@@ -1868,53 +1876,25 @@ body {
     height: 18px;
   }
 
-  .navbar-items {
-    order: 3;
-    flex-wrap: nowrap;
-    gap: 0.15rem;
-    justify-content: flex-start;
-    width: 100%;
-    overflow-x: auto;
-    padding: 0.25rem 0;
-    margin-top: 0.25rem;
-    border-top: 1px solid var(--glass-border);
-  }
-
-  .navbar-item {
-    padding: 0.4rem 0.5rem;
-    min-width: 36px;
-    min-height: 36px;
-    justify-content: center;
-    font-size: 0.75rem;
-  }
-
-  .navbar-item span {
-    display: inline;
-    font-size: 0.7rem;
-    margin-left: 0.25rem;
-  }
-
-  .navbar-item svg {
-    width: 16px;
-    height: 16px;
-  }
-
   .navbar-actions {
-    order: 2;
-    margin-left: auto;
-    gap: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
   }
 
   .navbar-recommend-btn {
-    min-width: 32px;
-    min-height: 32px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #f72585;
+    color: white;
+    border: none;
+    cursor: pointer;
   }
 
   .navbar-recommend-btn svg {
@@ -1927,25 +1907,37 @@ body {
   }
 
   .navbar-signin-btn {
-    padding: 0.4rem 0.75rem;
+    padding: 0.4rem 0.6rem;
     font-size: 0.8rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
 
   .navbar-signin-btn span {
     display: inline;
+    font-size: 0.75rem;
+  }
+
+  .navbar-signin-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
   .navbar-user {
-    gap: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
 
   .navbar-user-btn {
-    min-width: 32px;
-    min-height: 32px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     padding: 0;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
 
@@ -1959,12 +1951,12 @@ body {
   }
 
   .navbar-logout-btn {
-    min-width: 32px;
-    min-height: 32px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     padding: 0;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
 
@@ -1975,6 +1967,47 @@ body {
 
   .logout-text {
     display: none;
+  }
+
+  /* Tab navigation row */
+  .navbar-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0.5rem 0 0.25rem 0;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--glass-border);
+    overflow-x: auto;
+    gap: 0.25rem;
+  }
+
+  .navbar-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.5rem;
+    min-width: 44px;
+    min-height: 36px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .navbar-item span {
+    display: inline;
+    font-size: 0.7rem;
+  }
+
+  .navbar-item svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 
   /* Search section mobile */
@@ -1994,11 +2027,17 @@ body {
   .search-bar input {
     font-size: 0.85rem;
     padding: 0.25rem;
+    width: 100%;
+  }
+
+  .search-bar input::placeholder {
+    font-size: 0.8rem;
   }
 
   .search-icon {
     width: 16px;
     height: 16px;
+    flex-shrink: 0;
   }
 
   .mode-toggle {
@@ -2006,6 +2045,9 @@ body {
     font-size: 0.75rem;
     border-radius: 8px;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
 
   .mode-toggle svg {
@@ -2037,13 +2079,13 @@ body {
   }
 
   .categories-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.4rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
     padding: 0.5rem 0.75rem;
   }
 
   .category-card {
-    padding: 0.5rem;
+    padding: 0.6rem;
     border-radius: 8px;
   }
 
@@ -2068,14 +2110,16 @@ body {
 
   .anime-card {
     border-radius: 10px;
+    overflow: hidden;
   }
 
   .anime-poster {
-    height: 160px;
+    height: 150px;
+    object-fit: cover;
   }
 
   .anime-title {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     -webkit-line-clamp: 1;
     padding: 0.4rem 0.5rem;
   }
@@ -2088,7 +2132,7 @@ body {
   .fancy-action-btn {
     width: 28px;
     height: 28px;
-    border-radius: 8px;
+    border-radius: 6px;
   }
 
   .fancy-action-btn svg {
@@ -2099,58 +2143,65 @@ body {
   /* Hero section mobile */
   .hero-section {
     padding: 0.5rem 0.75rem;
-    gap: 0.75rem;
+    gap: 0.5rem;
     margin-bottom: 0.5rem;
   }
 
   .hero-container {
-    flex-direction: column;
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: flex-start;
   }
 
   .hero-poster {
-    border-radius: 12px;
-    max-height: 180px;
-    width: 120px;
+    border-radius: 10px;
+    width: 100px;
+    height: 140px;
     object-fit: cover;
+    flex-shrink: 0;
   }
 
   .hero-info {
-    padding: 0.75rem;
-    border-radius: 12px;
+    padding: 0.5rem;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 0;
   }
 
   .hero-title {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 0.25rem;
   }
 
   .hero-featured-badge {
-    font-size: 0.65rem;
-    padding: 0.2rem 0.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.55rem;
+    padding: 0.15rem 0.4rem;
+    margin-bottom: 0.4rem;
+    display: inline-block;
   }
 
   .hero-description {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    margin-bottom: 0.4rem;
   }
 
   .hero-meta {
-    gap: 0.5rem;
-    font-size: 0.7rem;
-    margin-bottom: 0.5rem;
+    gap: 0.4rem;
+    font-size: 0.65rem;
+    margin-bottom: 0.4rem;
   }
 
   .hero-actions {
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .hero-actions button {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.8rem;
-    border-radius: 8px;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
   }
 
   /* Main content */
@@ -2171,47 +2222,56 @@ body {
 
   .stats-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin: 1rem 0;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
   }
 
   .stat-card {
-    padding: 1rem;
-    border-radius: 12px;
+    padding: 0.75rem;
+    border-radius: 10px;
   }
 
   .stat-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  .stat-card p {
+    font-size: 0.7rem;
   }
 
   /* Login mobile */
+  .login-view-container {
+    padding: 1rem 0.5rem;
+  }
+
   .premium-login-card {
-    padding: 1.5rem;
+    padding: 1.25rem;
     margin: 0.5rem;
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   .login-brand h1 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .login-brand p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .premium-input-group {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
   }
 
   .premium-input-group input {
-    padding: 0.6rem 0.75rem;
-    font-size: 0.9rem;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
   }
 
   .premium-submit {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-    border-radius: 12px;
+    padding: 0.6rem;
+    font-size: 0.85rem;
+    border-radius: 10px;
   }
 }
 
@@ -2221,8 +2281,13 @@ body {
     display: none;
   }
 
-  .navbar-brand {
-    min-width: 28px;
+  .brand-icon-wrapper {
+    padding: 4px;
+  }
+
+  .navbar-item {
+    padding: 0.35rem 0.4rem;
+    min-width: 40px;
   }
 
   .navbar-item span {
@@ -2239,7 +2304,7 @@ body {
   }
 
   .anime-poster {
-    height: 140px;
+    height: 130px;
   }
 }
 
