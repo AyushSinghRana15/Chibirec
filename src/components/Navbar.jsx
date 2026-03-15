@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Eye, LayoutGrid, User, Sparkles, Flame, Heart, LogIn } from 'lucide-react';
+import { Zap, Eye, LayoutGrid, User, Sparkles, Flame, Heart, LogIn, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Navbar = ({ currentView, onViewChange, user, isInferno, onProfileClick, onLogout, onRecommendedClick, onSignInClick }) => {
@@ -13,7 +13,7 @@ const Navbar = ({ currentView, onViewChange, user, isInferno, onProfileClick, on
     return (
         <nav className="premium-navbar">
             <div className="navbar-brand">
-                <motion.div 
+                <motion.div
                     className="brand-icon-wrapper"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400 }}
@@ -32,7 +32,6 @@ const Navbar = ({ currentView, onViewChange, user, isInferno, onProfileClick, on
                             key={item.id}
                             className={`navbar-item ${isActive ? 'active' : ''}`}
                             onClick={() => onViewChange(item.id)}
-                            whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
                             <Icon size={18} />
@@ -51,32 +50,32 @@ const Navbar = ({ currentView, onViewChange, user, isInferno, onProfileClick, on
 
             <div className="navbar-actions">
                 {user && (
-                    <motion.button 
+                    <motion.button
                         className="navbar-recommend-btn"
                         onClick={onRecommendedClick}
-                        whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
+                        title="For You"
                     >
                         <Heart size={18} />
                         <span>For You</span>
                     </motion.button>
                 )}
-                
+
                 {user ? (
                     <div className="navbar-user">
-                        <button className="navbar-user-btn" onClick={onProfileClick}>
+                        <button className="navbar-user-btn" onClick={onProfileClick} title="Profile">
                             <User size={16} />
                             <span>{user?.username}</span>
                         </button>
                         <button className="navbar-logout-btn" onClick={onLogout} title="Logout">
+                            <LogOut size={16} />
                             <span className="logout-text">Logout</span>
                         </button>
                     </div>
                 ) : (
-                    <motion.button 
+                    <motion.button
                         className="navbar-signin-btn"
                         onClick={onSignInClick}
-                        whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
                         <LogIn size={18} />
