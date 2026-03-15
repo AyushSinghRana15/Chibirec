@@ -31,6 +31,7 @@
   "devDependencies": {
     "@railway/cli": "^4.31.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "vercel": "^50.32.5",
     "vite": "^6.0.0"
   }
 }
