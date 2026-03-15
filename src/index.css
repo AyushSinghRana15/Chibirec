@@ -1370,16 +1370,17 @@ body {
   bottom: 4px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
+  width: 24px;
   height: 3px;
   background: var(--primary);
   border-radius: 2px;
-  box-shadow: 0 0 10px var(--primary);
+  box-shadow: 0 0 12px var(--primary), 0 0 25px rgba(67, 97, 238, 0.5), 0 0 40px rgba(67, 97, 238, 0.3);
+  transition: all 0.3s ease;
 }
 
 [data-theme='inferno'] .navbar-indicator {
   background: #ff4d00;
-  box-shadow: 0 0 10px #ff4d00;
+  box-shadow: 0 0 12px #ff4d00, 0 0 25px rgba(255, 77, 0, 0.6), 0 0 40px rgba(255, 77, 0, 0.4);
 }
 
 .navbar-user {
